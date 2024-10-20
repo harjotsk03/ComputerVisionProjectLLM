@@ -1,0 +1,6 @@
+path: /Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbagedata
+train: /Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbagedata/train
+val: /Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbagedata/val
+
+nc: 3                     
+names: ['recycling', 'compost', 'landfill']  # Class names
