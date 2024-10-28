@@ -1,7 +1,7 @@
 import cv2
 import tkinter as tk
-from PIL import Image, ImageTk
 import time
+from PIL import Image, ImageTk
 
 object_start_time = None
 capture_duration = 5
