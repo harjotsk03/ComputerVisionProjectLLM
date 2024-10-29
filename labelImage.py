@@ -2,8 +2,8 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 # Path to your images directory
-images_directory = '/Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbagedata/train/landfill'
-output_directory = '/Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbagedata/labled/landfill'
+images_directory = '/Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbagedata/train/recycling'
+output_directory = '/Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbagedata/labled/recycling'
 
 # Create output directory if it doesn't exist
 os.makedirs(output_directory, exist_ok=True)
@@ -30,7 +30,7 @@ for filename in os.listdir(images_directory):
         draw.rectangle([top_left, bottom_right], outline="red", width=3)
 
         # Define the label
-        label = "landfill"
+        label = "recycling"
         
         # Load a font
         font = ImageFont.load_default()  # You can load a specific font if needed
