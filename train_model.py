@@ -12,12 +12,12 @@ def train_model():
     
     model = YOLO('yolov8n-cls.pt')
     print("Starting model training...")
-    model.train(data=dataset_path, epochs=5, imgsz=640)
+    model.train(data=dataset_path, epochs=3, imgsz=640, batch=16)
     print("Model training completed.")
 
 
 def test_model():
-    model = YOLO('runs/classify/train2/weights/best.pt')
+    model = YOLO('runs/classify/train3/weights/best.pt')
 
     # Run inference on the single image
     results = model("trash15.jpg")
