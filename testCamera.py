@@ -1,7 +1,9 @@
 import cv2
+import numpy as np
 import tkinter as tk
 import time
 from PIL import Image, ImageTk
+from ultralytics import YOLO
 
 object_start_time = None
 capture_duration = 5
@@ -47,9 +49,11 @@ def start_video():
                 else:
                     elapsed_time = time.time() - object_start_time
                     if elapsed_time >= capture_duration:
-                        captured_image = Image.fromarray(frame)
+                        cropped_image = frame[top_left_y:bottom_right_y, top_left_x:bottom_right_x]
+                        captured_image = Image.fromarray(cropped_image)
                         captured_image.save(f"captured_image_{count}.png")
                         print(f"Image captured and saved as captured_image_{count}.png")
+                        test_model(f"captured_image_{count}.png")
                         count += 1
                         object_start_time = None
             else:
@@ -64,6 +68,28 @@ def start_video():
         video_label.after(10, update_frame)
     
     update_frame()
+
+def test_model(image):
+    model = YOLO('runs/classify/train2/weights/best.pt')
+
+    results = model(image)
+    class_names = ['compost', 'landfill', 'recycling']
+
+    # Parse and print the results
+    for result in results:
+        # Print all class probabilities for debugging
+        for idx, prob in enumerate(result.probs.data.tolist()):
+            print(f"{class_names[idx]}: {prob:.2f}")
+
+        # Get the index and confidence of the top prediction
+        top_class_idx = result.probs.top1  # Index of the top predicted class
+        top_confidence = result.probs.top1conf.item()  # Confidence of the top prediction
+
+        # Get the class name from the index
+        top_class_name = class_names[top_class_idx]
+
+        # Print the top prediction result
+        print(f"Predicted class: {top_class_name} with confidence: {top_confidence:.2f}")
 
 root = tk.Tk()
 root.title("Image Capture Testing")

@@ -1,5 +1,6 @@
 path: garbagedata
 train: garbagedata/train
 val: garbagedata/val
-nc: 3                     
+
+nc: 3
 names: ['recycling', 'compost', 'landfill'] 

@@ -12,16 +12,16 @@ def train_model():
     
     model = YOLO('yolov8n-cls.pt')
     print("Starting model training...")
-    model.train(data=dataset_path, epochs=10, imgsz=640, batch=64)
+    model.train(data=dataset_path, epochs=5, imgsz=640)
     print("Model training completed.")
 
 
 def test_model():
-    model = YOLO('/Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/runs/classify/train9/weights/best.pt')  # Ensure the path ends with 'best.pt'
+    model = YOLO('runs/classify/train2/weights/best.pt')
 
     # Run inference on the single image
-    results = model("captured_image_3.png")
-    class_names = ['recycling', 'landfill', 'compost']
+    results = model("trash15.jpg")
+    class_names = ['compost', 'landfill', 'recycling']
 
     # Parse and print the results
     for result in results:

@@ -1,8 +1,8 @@
 task: classify
 mode: train
 model: yolov8n-cls.pt
-data: /Users/harjotsingh/Desktop/repos/ComputerVisionProjectLLM/garbage.yaml
-epochs: 100
+data: garbagedata
+epochs: 5
 time: null
 patience: 100
 batch: 16
