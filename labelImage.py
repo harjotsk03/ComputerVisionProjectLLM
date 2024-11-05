@@ -56,3 +56,4 @@ for filename in os.listdir(images_directory):
         img.save(output_path)
 
 print("Images processed and saved in the output directory.")
+

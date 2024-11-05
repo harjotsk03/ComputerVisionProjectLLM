@@ -70,7 +70,7 @@ def start_video():
     update_frame()
 
 def test_model(image):
-    model = YOLO('runs/classify/train2/weights/best.pt')
+    model = YOLO('runs/classify/train4/weights/best.pt')
 
     results = model(image)
     class_names = ['compost', 'landfill', 'recycling']
