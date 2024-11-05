@@ -4,10 +4,14 @@ import tkinter as tk
 import time
 from PIL import Image, ImageTk
 from ultralytics import YOLO
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 object_start_time = None
 capture_duration = 5
 count = 0
+
+true_labels = []  # Store the true labels for each captured image
+predictions = []  # Store predictions for each captured image
 
 def start_video():
     cap = cv2.VideoCapture(0)
@@ -53,7 +57,7 @@ def start_video():
                         captured_image = Image.fromarray(cropped_image)
                         captured_image.save(f"captured_image_{count}.png")
                         print(f"Image captured and saved as captured_image_{count}.png")
-                        test_model(f"captured_image_{count}.png")
+                        test_model(f"captured_image_{count}.png", true_labels)
                         count += 1
                         object_start_time = None
             else:
@@ -68,6 +72,7 @@ def start_video():
         video_label.after(10, update_frame)
     
     update_frame()
+
 
 def test_model(image):
     model = YOLO('runs/classify/train4/weights/best.pt')
@@ -90,6 +95,7 @@ def test_model(image):
 
         # Print the top prediction result
         print(f"Predicted class: {top_class_name} with confidence: {top_confidence:.2f}")
+        
 
 root = tk.Tk()
 root.title("Image Capture Testing")
