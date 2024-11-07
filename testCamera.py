@@ -10,9 +10,6 @@ object_start_time = None
 capture_duration = 5
 count = 0
 
-true_labels = []  # Store the true labels for each captured image
-predictions = []  # Store predictions for each captured image
-
 def start_video():
     cap = cv2.VideoCapture(0)
     
@@ -57,7 +54,7 @@ def start_video():
                         captured_image = Image.fromarray(cropped_image)
                         captured_image.save(f"captured_image_{count}.png")
                         print(f"Image captured and saved as captured_image_{count}.png")
-                        test_model(f"captured_image_{count}.png", true_labels)
+                        test_model(f"captured_image_{count}.png")
                         count += 1
                         object_start_time = None
             else:
@@ -80,9 +77,7 @@ def test_model(image):
     results = model(image)
     class_names = ['compost', 'landfill', 'recycling']
 
-    # Parse and print the results
     for result in results:
-        # Print all class probabilities for debugging
         for idx, prob in enumerate(result.probs.data.tolist()):
             print(f"{class_names[idx]}: {prob:.2f}")
 

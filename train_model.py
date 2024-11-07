@@ -66,43 +66,6 @@ def evaluate_model():
     print(f"F1 Score: {f1:.2f}")
     print(f"Accuracy: {accuracy:.2f}")
 
-def evaluate_images(image_paths, true_labels):
-    model = YOLO('runs/classify/train4/weights/best.pt')
-    predicted_labels = []
-
-    # Run inference on the list of images
-    for image_path in image_paths:
-        results = model(image_path)
-        class_names = ['compost', 'landfill', 'recycling']
-
-        for result in results:
-            top_class_idx = result.probs.top1  # Index of the top predicted class
-            predicted_labels.append(class_names[top_class_idx])  # Get the class name
-
-    # Calculate evaluation metrics
-    precision = precision_score(true_labels, predicted_labels, average='weighted', zero_division=0)
-    recall = recall_score(true_labels, predicted_labels, average='weighted', zero_division=0)
-    f1 = f1_score(true_labels, predicted_labels, average='weighted', zero_division=0)
-    accuracy = accuracy_score(true_labels, predicted_labels)
-
-    # Print the evaluation report
-    print("Evaluation Report:")
-    print(f"Precision: {precision:.2f}")
-    print(f"Recall: {recall:.2f}")
-    print(f"F1 Score: {f1:.2f}")
-    print(f"Accuracy: {accuracy:.2f}")
-
 # Example usage
 if __name__ == '__main__':
-    # Define the image paths and their true labels
-    image_paths = [
-        "biological123.jpg",  # true label: landfill
-        "captured_image_1.png",  # true label: recycling
-        "trash15.jpg",   # true label: recycling
-        "captured_image_0.png",  # true label: recycling
-        "captured_image_2.png",  # true label: recycling
-    ]
-    true_labels = ['compost', 'recycling', 'landfill', 'landfill', 'recycling']
-
-    evaluate_images(image_paths, true_labels)
-    evaluate_model()
+    train_model()
